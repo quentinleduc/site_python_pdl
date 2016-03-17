@@ -1,0 +1,6 @@
+4 point sur conception, architecture logicielle
+3 point sur gestion des erreurs/tests unitaire
+4 point sur la qualité du code
+3 point sur la présentation orale
+2 point sur le démo
+4 point bonus

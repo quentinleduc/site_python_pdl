@@ -1,0 +1,23 @@
+#coding: utf8
+import MySQLdb
+from FormailizeString import formalizeStr
+
+def Activity(connection, csv_data):
+    cursor = connection.cursor()
+    not_first = False
+    for row in csv_data:
+        if(not_first) :
+            if(len(row) > 5):
+                if(row[4] and row[5]) :
+                    #print(str(row[4]), str(row[5]))
+                    args1 = [int(row[4])]
+                    cursor.execute('SELECT ID FROM activitee WHERE ID=%s', args1)
+                    rep = cursor.fetchall()
+                    if(not rep):
+                        args = [int(row[4]), formalizeStr(row[5])]
+                        cursor.execute('INSERT INTO activitee VALUES(%s, %s)', args)
+        else :
+            not_first = True
+    connection.commit()
+    cursor.close()
+    print "Done Activities"
