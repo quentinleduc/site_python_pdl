@@ -1,7 +1,7 @@
 from libs.bottle import route, template, run
 
-@route('/hello/<name>')
+@route('/recherche/<name>')
 def index(name):
-    return template('<b>Hello {{name}}</b>!', name=name)
+    return "Hello {{name}}"
 
-run(host='0.0.0.0', port=8080)
+run(host='0.0.0.0', port=8081)
