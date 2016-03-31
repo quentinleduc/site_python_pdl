@@ -1,56 +1,49 @@
+#coding: utf8
 from libs.bottle import *
-import MySQLdb
 import json
-from modules.importers.FormailizeString import formalizeStr
+from SqlRequestPy.searchRequest import searchRequest
+from SqlRequestPy.completionRequest import completionRequest
 
 
-def connection():
-    return MySQLdb.connect(user='quentinleduc', passwd='quentinleduc', db='c9',  charset='utf8')
-    
+'''
+        Toute les recherche se ferons à l'adresse mon.domaine.com/search/<param>
+        Retourne une matrice formater en JSON
+'''
 @route('/search/<param>')
 def search(param):
     
-    result = []
+    result = searchRequest(param)
     
     return json.dumps(result)
     
+
+'''
+        Simple auto completion return un array formater en JSON pour tout ce qui commence par <param>
+        Accessible à l'adresse mon.domaine.com/completion/<param>
+'''
 @route('/completion/<param>')
 def completion(param):
-    conn = connection()
-    cursor = conn.cursor()
-    ask = formalizeStr(param)
-    cursor.execute("SELECT DISTINCT ville FROM installations WHERE ville LIKE '"+ask+"%' LIMIT 10;")
-    ville = cursor.fetchall()
     
-    cursor.execute("SELECT DISTINCT nom FROM activitee WHERE nom LIKE '"+ask+"%' LIMIT 10;")
-    act = cursor.fetchall()
-    
-    cities = []
-    for row in ville:
-        cities.append(row[0])
-    
-    activities = []
-    for row in act:
-        activities.append(row[0])
-        
-    cities.sort()
-    activities.sort()
-    
-    result = []
-    result.append(cities)
-    result.append(activities)
+    result = completionRequest(param)
     
     return json.dumps(result)
-
 
 
 #####################################################
 #               Default     Pages                   #
 #####################################################
+
+'''
+        Route par defaut !
+'''
 @route('/')
 def index():
     return static_file("index.html", root='vues/')
     
+
+'''
+        Route par defaut !
+'''
 @route('/<filename:path>')
 def index_path(filename):
     return static_file(filename, root='vues/')

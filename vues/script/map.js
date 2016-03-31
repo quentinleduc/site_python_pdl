@@ -13,6 +13,7 @@ function initGoogleMap() {
     disableDoubleClickZoom: true
   });
   
+  //  Simple test de positionnement de marker et de recuperation de coordonnées
   map.addListener('click', function(e) {
     var marker = new google.maps.Marker({
       position: {lat: e.latLng.lat(), lng: e.latLng.lng()},
@@ -21,3 +22,6 @@ function initGoogleMap() {
   });
 }
 
+
+  //  TODO : faire un fonction qui place un marker au coordonnées envoyer
+  //  TODO : faire une fonction pour deplacer la map au coordonnées souhaiter

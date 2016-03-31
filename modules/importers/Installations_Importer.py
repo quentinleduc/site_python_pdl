@@ -2,6 +2,10 @@
 import MySQLdb
 from FormailizeString import formalizeStr
 
+'''
+        Fonction qui importe le fichier csv installations dans notre base de donnée
+'''
+
 def Installation(connection, csv_data):
     cursor = connection.cursor()
     not_first = False

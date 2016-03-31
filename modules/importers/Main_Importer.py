@@ -5,6 +5,7 @@ from Installations_Importer import Installation
 from Equipements_Importer import Equipement
 from Activities_Importer import Activity
 from Act_Equ_Importer import Act_Equ
+from mysqlConnection import connection
 
 import os
  
@@ -29,7 +30,7 @@ def purge():
     ############################################################
     
 def importall():
-    conn = MySQLdb.connect(user='quentinleduc', passwd='quentinleduc', db='c9')
+    conn = connection()
     
     Installation(conn, csv.reader(file(dir_path+'/../csv/installations.csv')) )
     Equipement(conn, csv.reader(file(dir_path+'/../csv/equipements.csv')) )

@@ -10,9 +10,16 @@
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+    	
+    	<!-- Jquery + Datatble -->
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    	
+    	<script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+    	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/dataTables.jqueryui.min.css" />
 		
 		<!-- Scripts -->
-		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/skel.min.js"></script>
 		<script src="assets/js/util.js"></script>
 		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
@@ -22,7 +29,7 @@
 		<script src="script/autocomplete.js"></script>
     	<script src="script/menu.js"> </script>
     	<script src="script/map.js"> </script>
-    	
+		
 		<!-- Google Map API -->
 	    <script async defer
 	        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6YBDyBrjD5shLeoNJKVnxLf22Y1tBm9E&libraries=visualization">
@@ -40,9 +47,9 @@
 						<h1><a href="#">Coucou les gens</a></h1>
 						<nav class="links">
 							<ul>
-								<li className="home"><a href="javascript:void()">Home</a></li>
-								<li className="search-div"><a href="javascript:void()">Faire une recherche</a></li>
-								<li className="search-map"><a href="javascript:void()" onclick="initGoogleMap();">Rechercher Sur La Carte</a></li>
+								<li className="home"><a >Home</a></li>
+								<li className="search-div"><a >Faire une recherche</a></li>
+								<li className="search-map"><a onclick="initGoogleMap();">Rechercher Sur La Carte</a></li>
 							</ul>
 						</nav>
 						<nav class="main">
@@ -90,7 +97,13 @@
 								</div>
 							</header>
 							<section>
-								
+								<nav class="links">
+									<ul>
+										<li className="home"><a >Home</a></li>
+										<li className="search-div"><a >Faire une recherche</a></li>
+										<li className="search-map"><a onclick="initGoogleMap();">Rechercher Sur La Carte</a></li>
+									</ul>
+								</nav>
 							</section>
 						</article>
 						<!-- FIN main -->
@@ -107,7 +120,7 @@
 								</div>-->
 							</header>
 							<section>
-								<form action="javascript:void()" style="width: 100%; height: 80px;" id="searchForm">
+								<form style="width: 100%; height: 80px;" id="searchForm">
 									<input type="submit" class="fa fa-search button big" style="float: left; width: 10%;"/>
 									<input type="text" id="searchBar" name="search" placeholder="Search" style="float: left; width: 80%; height: 3.35em;"/>
 								</form>
@@ -126,42 +139,26 @@
 
 							<section>
 								<div class="table-wrapper">
-									<table class="alt" style="display: none;">
+									<table class="alt">
 										<thead>
 											<tr>
-												<th>Name</th>
-												<th>Description</th>
-												<th>Price</th>
+												<th>Nom de l'etablissement</th>
+												<th>Adresse</th>
+												<th>CodePostal</th>
+												<th>Ville</th>
+												<th>Localiser</th>
 											</tr>
 										</thead>
+										<tfoot>
+											<tr>
+												<th>Nom de l'etablissement</th>
+												<th>Adresse</th>
+												<th>CodePostal</th>
+												<th>Ville</th>
+												<th>Localiser</th>
+											</tr>
+										</tfoot>
 										<tbody>
-											<tr>
-												<td>Item One</td>
-												<td>Ante turpis integer aliquet porttitor.</td>
-												<td>29.99</td>
-											</tr>
-											<tr>
-												<td>Item Two</td>
-												<td>Vis ac commodo adipiscing arcu aliquet.</td>
-												<td>19.99</td>
-											</tr>
-											<tr>
-												<td>Item Three</td>
-												<td> Morbi faucibus arcu accumsan lorem.</td>
-												<td>29.99</td>
-											</tr>
-											<tr>
-												<td>Item Four</td>
-												<td>Vitae integer tempus condimentum.</td>
-												<td>19.99</td>
-											</tr>
-											<tr>
-												<td>Item Five</td>
-												<td>Ante turpis integer aliquet porttitor.</td>
-												<td>
-													<a href="" class="button fit small actions next">View Map</a>
-												</td>
-											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -181,7 +178,7 @@
 								</div>-->
 							</header>
 							<section>
-								<form action="javascript:void()" style="width: 100%; height: 80px;" id="mapForm">
+								<form style="width: 100%; height: 80px;" id="mapForm">
 									<input type="submit" class="fa fa-search button big" style="float: left; width: 10%;"/>
 									<input type="text" id="mapsearchBar" name="search" placeholder="Search" style="float: left; width: 80%; height: 3.35em;"/>
 								</form>

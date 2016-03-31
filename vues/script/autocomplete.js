@@ -1,4 +1,7 @@
+var datatable = null;
+
 $(function(){
+	datatable = $("#resultsearch section div.table-wrapper table").DataTable();
 	setMenuEvents();
 	setSearchEvents();
 });
@@ -15,6 +18,7 @@ function setMenuEvents(){
 			tab.html("");
 			return;
 		}
+		//	Contact mon rest-example.py pour l'autocompletion
 		$.ajax({
 			url: "/completion/"+$(this).val(),
 			type: "GET",
@@ -28,6 +32,7 @@ function setMenuEvents(){
 				if(jsonData[0].length > 0){
 					str+="<li><h1>Villes :</h1></li><ul>";
 					$.each(jsonData[0], function(key,value){
+						//	TODO: Faire un lien pour lier l'autocompletion a la map
 						str += '<li>'+value+"</li>";
 					});
 					str+="</ul>";
@@ -36,6 +41,7 @@ function setMenuEvents(){
 				if(jsonData[1].length > 0){
 					str+="<li><h1>Activitées :</h1></li><ul>";
 					$.each(jsonData[1], function(key,value){
+						//	TODO: Faire un lien pour lier l'autocompletion a la recherche
 						str += '<li>'+value+"</li>";
 					});
 					str+="</ul>";
@@ -52,56 +58,43 @@ function setMenuEvents(){
 
 function setSearchEvents(){
 	
-	var $content 		= 	$("#resultsearch");
 	var $title 			= 	$("#resultsearch header div.title h2");
-	var $table		 	= 	$("#resultsearch section div.table-wrapper table");
-	var $table_content	= 	$("#resultsearch section div.table-wrapper table tbody");
 	
 	var $searchForm		=	$("#searchForm");
 	var $searchBar		=	$("#searchBar");
 	
 	
-	$searchBar.on("click", function(){
-		$table_content.html("");
-		$content.hide();
-	});
-	$searchForm.on('submit', function(){
+	$searchForm.on('submit', function(e){
+		e.preventDefault();
 		if($searchBar.val().length <=0 ){
-			$table_content.html("");
-			$table.hide();
-			$content.hide();
 			return;
 		}
+		//	Contact mon rest-example.py pour la recherche
 		$.ajax({
 			url: "/search/"+$searchBar.val(),
 			type: "GET",
 			dataType: "JSON",
 			success : function(jsonData){
-				$content.show();
+				//	Reset an existing datatable
+				datatable.clear().draw();
 				
 				if(jsonData == null || jsonData.length <= 0){
 					$title.html("Aucune corespondance");
-					$table_content.html("");
-					$table.hide();
 					return;
 				}
-				
-				$table.show();
-				var str="";
+				$title.html("Resultat de la Recherche:");
 				$.each(jsonData, function(key,value){
-					str+="<tr>";
+					var row = [];
 					$.each(jsonData[key], function(key,value){
-						str += '<td>'+value+"</td>";
+						row.push(value);
 					});
-					str+="</tr>";
+					//	TODO: Lier le lien a la map google pour placer un marker
+					row.push('<a href="#" class="button fit small actions next">View Map</a>');
+					datatable.row.add(row).draw();
 				});
-				$table_content.html(str);
 			},
 			error: function(result,status,error){
-				$content.show();
 				$title.html("Erreur avec la page !");
-				$table_content.html("");
-				$table.hide();
 				return;
 			}
 			
