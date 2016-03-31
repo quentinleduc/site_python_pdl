@@ -12,7 +12,7 @@ import os
 dir_path = os.path.dirname(os.path.abspath(__file__))
 
 def purge():
-    conn = MySQLdb.connect(user='quentinleduc', passwd='quentinleduc', db='c9',  charset='utf8')
+    conn = connection()
     cursor = conn.cursor()
     ############################################################
     #   Vidange des tables ^^
